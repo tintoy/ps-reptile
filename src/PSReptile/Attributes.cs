@@ -6,13 +6,13 @@ namespace PSReptile
     ///     Provides inline help content for a Cmdlet.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class CmdletHelp
+    public class CmdletHelpAttribute
         : Attribute
     {
         /// <summary>
         ///     Provide inline help content for the Cmdlet.
         /// </summary>
-        public CmdletHelp()
+        public CmdletHelpAttribute()
         {
         }
 
