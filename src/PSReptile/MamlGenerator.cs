@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
 using System.Reflection;
 
 namespace PSReptile
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using Models.Maml;
 
     /// <summary>
