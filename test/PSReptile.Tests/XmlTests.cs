@@ -6,7 +6,7 @@ using Xunit.Abstractions;
 
 namespace PSReptile.Tests
 {
-    using Models.Maml;
+    using Maml;
 
     /// <summary>
     ///     Tests for MAML XML generation.

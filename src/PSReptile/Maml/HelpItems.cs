@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace PSReptile.Models.Maml
+namespace PSReptile.Maml
 {
     /// <summary>
     ///     The root ("helpItems") XML element in a Powershell MAML help file.
@@ -12,6 +12,8 @@ namespace PSReptile.Models.Maml
         /// <summary>
         ///     Command documentation.
         /// </summary>
+        [XmlArray("commands", Namespace = Constants.XmlNamespace.Command)]
+        [XmlArrayItem("command", Namespace = Constants.XmlNamespace.Command)]
         public List<Command> Commands { get; set; } = new List<Command>();
     }
 }

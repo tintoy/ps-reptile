@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Management.Automation;
 using System.Reflection;
 
 namespace PSReptile
 {
-    using Models.Maml;
+    using Maml;
 
     /// <summary>
     ///     Generates MAML from Powershell binary modules and the Cmdlets they contain.
@@ -14,14 +15,28 @@ namespace PSReptile
     public static class MamlGenerator
     {
         /// <summary>
-        ///     The base type for Powershell Cmdlets.
+        ///     Generate MAML documentation for the specified module.
         /// </summary>
-        static readonly Type CmdletBaseType = typeof(Cmdlet);
+        /// <param name="moduleAssembly">
+        ///     The assembly that implements the module.
+        /// </param>
+        /// <returns>
+        ///     A <see cref="Command"/> representing the Cmdlet documentation.
+        /// </returns>
+        public static HelpItems Generate(Assembly moduleAssembly)
+        {
+            if (moduleAssembly == null)
+                throw new ArgumentNullException(nameof(moduleAssembly));
 
-        /// <summary>
-        ///     Extended information about the base type for Powershell Cmdlets.
-        /// </summary>
-        static readonly TypeInfo CmdletBaseTypeInfo = CmdletBaseType.GetTypeInfo();
+            HelpItems help = new HelpItems();
+            help.Commands.AddRange(
+                Reflector.GetCmdletTypes(moduleAssembly).Select(
+                    cmdletType => Generate(cmdletType)
+                )
+            );
+
+            return help;
+        }
 
         /// <summary>
         ///     Generate MAML documentation for the specified Cmdlet.
@@ -37,14 +52,12 @@ namespace PSReptile
             if (cmdletType == null)
                 throw new ArgumentNullException(nameof(cmdletType));
 
+            if (!Reflector.IsCmdlet(cmdletType))
+                throw new ArgumentException($"'{cmdletType.FullName}' does not implement a Cmdlet (must be public, non-abstract, derive from '{typeof(Cmdlet).FullName}', and be decorated with '{typeof(CmdletAttribute).FullName}').", nameof(cmdletType));
+
             TypeInfo cmdletTypeInfo = cmdletType.GetTypeInfo();
-
-            if (!CmdletBaseTypeInfo.IsAssignableFrom(cmdletTypeInfo))
-                throw new ArgumentException($"'{cmdletType.FullName}' does not derive from '{CmdletBaseType.FullName}'.", nameof(cmdletType));
-
             CmdletAttribute cmdletAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletAttribute>();
-            if (cmdletAttribute == null)
-                throw new ArgumentException($"'{cmdletType.FullName}' is missing the '{typeof(CmdletAttribute).FullName}' custom attribute.", nameof(cmdletType));
+            Debug.Assert(cmdletAttribute != null, "cmdletAttribute != null");
 
             CmdletHelpAttribute cmdletHelpAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletHelpAttribute>();
             
@@ -66,14 +79,11 @@ namespace PSReptile
 
             foreach (PropertyInfo property in cmdletType.GetProperties())
             {
-                // Public and writable.
-                if (!property.CanWrite || !property.GetSetMethod().IsPublic)
+                if (!Reflector.IsCmdletParameter(property))
                     continue;
 
-                // Must be decorated with [Parameter]
-                ParameterAttribute parameterAttribute = property.GetCustomAttribute<ParameterAttribute>();
-                if (parameterAttribute == null)
-                    continue;
+                // TODO: Handle multiple parameter sets.
+                ParameterAttribute parameterAttribute = property.GetCustomAttributes<ParameterAttribute>().First();
 
                 // TODO: Add support for localised help from resources.
                 commandHelp.Parameters.Add(new Parameter
@@ -107,6 +117,9 @@ namespace PSReptile
         /// </returns>
         static List<string> ToParagraphs(string text)
         {
+            if (text == null)
+                text = String.Empty;
+
             return new List<string>(
                 text.Split(
                     separator: new[] {

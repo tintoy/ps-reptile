@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace PSReptile.Models.Maml
+namespace PSReptile.Maml
 {
     /// <summary>
     ///     Represents the "details" element under a "command" element in a Powershell MAML help document.

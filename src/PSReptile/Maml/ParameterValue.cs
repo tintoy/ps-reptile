@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 
-namespace PSReptile.Models.Maml
+namespace PSReptile.Maml
 {
     /// <summary>
     ///     Represents a "parameterValue" element in a Powershell MAML help document.
