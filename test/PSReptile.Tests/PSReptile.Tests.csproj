@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/PSReptile/PSReptile.csproj"/>
+    <ProjectReference Include="../../src/PSReptile.SampleModule/PSReptile.SampleModule.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Powershell Core 6.0.0-alpha13 -->
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
+    <PackageReference Include="NETStandard.Library" Version="1.6.1"/>
+    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170106-08" />
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="1.1.0" />
+    
+    <PackageReference Include="xunit" Version="2.2.0-rc4-build3536" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0-rc4-build1270" />
+  </ItemGroup>
+
+</Project>

@@ -21,11 +21,17 @@ public class GetFooConnection
 ```csharp
 [Cmdlet(VerbsCommon.Get, "Foo")]
 [OutputType(typeof(FooConnectionProfile))]
-[CmdletHelpFromFile("Help/Connections/GetFooConnection/Cmdlet.txt")]
+[CmdletHelp(
+    Synopsis = "Retrieve information about one or more Foo connection profiles",
+    Description = @"
+        This Cmdlet retrieves information about Foo connection profiles.
+        The connection profiles are persisted in $HOME/.foo/connection-profiles.json.
+    "
+)]
 public class GetFooConnection
 {
     [Parameter]
-    [ParameterHelpFromFile("Help/Connections/GetFooConnection/All.txt")]
+    [ParameterHelpFromFile("Help/Connections/Get-FooConnection/All.txt")]
     public SwitchParameter All { get; set; }
 }
 ```
