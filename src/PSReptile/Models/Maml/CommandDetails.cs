@@ -16,22 +16,22 @@ namespace PSReptile.Models.Maml
         public string Name { get; set; }
 
         /// <summary>
+        ///     The command synopsis (one or more paragraphs; "maml:description/maml:para").
+        /// </summary>
+        [XmlArray("description", Namespace = Constants.XmlNamespace.MAML, Order = 1)]
+        [XmlArrayItem("para", Namespace = Constants.XmlNamespace.MAML)]
+        public List<string> Synopsis { get; set; } = new List<string>();
+
+        /// <summary>
         ///     The verb component of the Cmdlet's name.
         /// </summary>
-        [XmlElement("verb", Namespace = Constants.XmlNamespace.Command, Order = 1)]
+        [XmlElement("verb", Namespace = Constants.XmlNamespace.Command, Order = 2)]
         public string Verb { get; set; }
 
         /// <summary>
         ///     The noun component of the Cmdlet's name.
         /// </summary>
-        [XmlElement("noun", Namespace = Constants.XmlNamespace.Command, Order = 2)]
+        [XmlElement("noun", Namespace = Constants.XmlNamespace.Command, Order = 3)]
         public string Noun { get; set; }
-
-        /// <summary>
-        ///     The command synopsis (one or more paragraphs; "maml:description/maml:para").
-        /// </summary>
-        [XmlArray("description", Namespace = Constants.XmlNamespace.MAML, Order = 3)]
-        [XmlArrayItem("para", Namespace = Constants.XmlNamespace.MAML)]
-        public List<string> Synopsis { get; set; } = new List<string>();
     }
 }
