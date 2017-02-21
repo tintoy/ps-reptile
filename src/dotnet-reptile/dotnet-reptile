@@ -17,4 +17,4 @@ get_script_dir () {
 
 get_script_dir
 
-dotnet "$SCRIPT_DIR/$ENTRY_POINT_ASSEMBLY"
+dotnet "$SCRIPT_DIR/$ENTRY_POINT_ASSEMBLY" $*

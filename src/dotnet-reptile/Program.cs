@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Xml.Serialization;
 
 namespace PSReptile.DotNetCli
 {
@@ -20,17 +19,20 @@ namespace PSReptile.DotNetCli
         /// </param>
         static void Main(string[] args)
         {
-            if (args.Length < 1 || args.Length > 2)
+            if (args.Length < 2 || args.Length > 3 || args[0] != "gen-help")
             {
-                Console.WriteLine("Usage:\n\tdotnet-reptile <Module.dll> [Module.dll-Help.xml]");
+                Console.WriteLine("Usage:\n\tdotnet reptile gen-help <Module.dll> [Module.dll-Help.xml]");
 
                 return;
             }
 
             try
             {
-                string modulePath = Path.GetFullPath(args[0]);
+                string modulePath = Path.GetFullPath(args[1]);
 
+                // If the module's dependencies are not available from
+                // the usual places (e.g. dotnet-reptile's base directory)
+                // then load them from the module directory.
                 DirectoryAssemblyLoadContext loadContext = new DirectoryAssemblyLoadContext(
                     Path.GetDirectoryName(modulePath)
                 );
@@ -38,17 +40,14 @@ namespace PSReptile.DotNetCli
                 HelpItems help = MamlGenerator.Generate(moduleAssembly);
 
                 FileInfo helpFile = new FileInfo(
-                    fileName: args.Length == 2 ? Path.GetFullPath(args[1]) : modulePath + "-Help.xml"
+                    fileName: args.Length == 3 ? Path.GetFullPath(args[2]) : modulePath + "-Help.xml"
                 );
                 if (helpFile.Exists)
                     helpFile.Delete();
 
                 using (StreamWriter writer = helpFile.CreateText())
                 {
-                    new XmlSerializer(typeof(HelpItems)).Serialize(
-                        writer, help, Constants.XmlNamespace.GetStandardPrefixes()
-                    );
-                    writer.Flush();
+                    help.WriteTo(writer);
                 }
 
                 Console.WriteLine($"Generated '{helpFile.FullName}'.");

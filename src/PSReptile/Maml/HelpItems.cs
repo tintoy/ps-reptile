@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace PSReptile.Maml
@@ -20,5 +23,37 @@ namespace PSReptile.Maml
         /// </summary>
         [XmlElement("command", Namespace = Constants.XmlNamespace.Command)]
         public List<Command> Commands { get; set; } = new List<Command>();
+
+        /// <summary>
+        ///     Write the help to the specified <see cref="TextWriter"/>.
+        /// </summary>
+        /// <param name="writer">
+        ///     <see cref="TextWriter"/>
+        /// </param>
+        public void WriteTo(TextWriter writer)
+        {
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
+            new XmlSerializer(GetType()).Serialize(
+                writer, this, Constants.XmlNamespace.GetStandardPrefixes()
+            );
+        }
+
+        /// <summary>
+        ///     Write the help to the specified <see cref="XmlWriter"/>.
+        /// </summary>
+        /// <param name="writer">
+        ///     <see cref="XmlWriter"/>
+        /// </param>
+        public void WriteTo(XmlWriter writer)
+        {
+            if (writer == null)
+                throw new ArgumentNullException(nameof(writer));
+
+            new XmlSerializer(GetType()).Serialize(
+                writer, this, Constants.XmlNamespace.GetStandardPrefixes()
+            );
+        }
     }
 }
