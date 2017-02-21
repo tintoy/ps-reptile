@@ -1,16 +1,16 @@
-<Project>
-  <!--
-    Have to import this explicitly rather than using "Sdk" attribute
-    on "Project" element or custom targets using
-    "BeforeTargets" / "AfterTargets" won't run.
-  -->
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- PowerShell core requires NETStandard 1.6.1 -->
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp1.0</TargetFramework>
     <DebugType>portable</DebugType>
   </PropertyGroup>
+
+  <Import Project="../Common.props"/>
 
   <!-- Wrapper executables -->
   <ItemGroup>
@@ -31,14 +31,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
 
-    <PackageReference Include="NETStandard.Library" Version="1.6.1"/>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
   </ItemGroup>
-
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
-
-  <Target Name="AfterPublish" AfterTargets="Publish">
-    <Message Text="PublishDir = '$(PublishDir)'" Importance="high"/>
-  </Target>
-
 </Project>

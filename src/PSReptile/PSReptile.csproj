@@ -1,18 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- PowerShell core requires NETStandard 1.6.1 -->
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+  </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <DebugType>portable</DebugType>
 
-    <PackageVersion>0.1.0</PackageVersion>
-    <PackageVersion Condition=" '$(VersionSuffix)' != '' ">$(PackageVersion)-$(VersionSuffix)</PackageVersion>
     <PackageSummary>MAML help generation for Powershell Core binary modules.</PackageSummary>
-    <PackageProjectUrl>https://tintoy.github.io/ps-reptile/</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/tintoy/ps-reptile/master/LICENSE</PackageLicenseUrl>
-
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/tintoy/ps-reptile</RepositoryUrl>
   </PropertyGroup>
+
+  <Import Project="../Common.props"/>
 
   <ItemGroup>
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
@@ -21,8 +20,6 @@
   <!-- Powershell Core v6.0.0-alpha13 -->
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
-
-    <PackageReference Include="NETStandard.Library" Version="1.6.1"/>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
   </ItemGroup>
 

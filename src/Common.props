@@ -1,0 +1,13 @@
+<Project>
+    <!-- Package metadata -->
+    <PropertyGroup>
+        <PackageProjectUrl>https://tintoy.github.io/ps-reptile/</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/tintoy/ps-reptile/master/LICENSE</PackageLicenseUrl>
+
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/tintoy/ps-reptile</RepositoryUrl>
+    </PropertyGroup>
+
+    <!-- Global version info -->
+    <Import Project="../VersionInfo.props"/>
+</Project>
