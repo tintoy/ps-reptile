@@ -34,7 +34,9 @@ namespace PSReptile.DotNetCli
                         Path.GetFullPath(args[0])
                     )
                 );
-                Assembly moduleAssembly = loadContext.LoadFromAssemblyPath(args[0]);
+                Assembly moduleAssembly = loadContext.LoadFromAssemblyPath(
+                    Path.GetFullPath(args[0])
+                );
                 HelpItems help = MamlGenerator.Generate(moduleAssembly);
 
                 using (StringWriter writer = new StringWriter())
