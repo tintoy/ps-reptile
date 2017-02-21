@@ -59,7 +59,8 @@ namespace PSReptile
             CmdletAttribute cmdletAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletAttribute>();
             Debug.Assert(cmdletAttribute != null, "cmdletAttribute != null");
 
-            CmdletHelpAttribute cmdletHelpAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletHelpAttribute>();
+            CmdletSynopsisAttribute cmdletSynopsisAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletSynopsisAttribute>();
+            CmdletDescriptionAttribute cmdletDescriptionAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletDescriptionAttribute>();
             
             Command commandHelp = new Command
             {
@@ -67,13 +68,13 @@ namespace PSReptile
                 {
                     Name = $"{cmdletAttribute.VerbName}-{cmdletAttribute.NounName}",
                     Synopsis = ToParagraphs(
-                        cmdletHelpAttribute?.Synopsis?.Trim() ?? String.Empty
+                        cmdletSynopsisAttribute?.Synopsis?.Trim() ?? String.Empty
                     ),
                     Verb = cmdletAttribute.VerbName,
                     Noun = cmdletAttribute.NounName
                 },
                 Description = ToParagraphs(
-                    cmdletHelpAttribute?.Description?.Trim() ?? String.Empty
+                    cmdletDescriptionAttribute?.Description?.Trim() ?? String.Empty
                 )
             };
 
