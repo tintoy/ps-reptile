@@ -10,10 +10,15 @@ namespace PSReptile.Maml
     public class HelpItems
     {
         /// <summary>
+        ///     No idea what the point of this atribute is.
+        /// </summary>
+        [XmlAttribute("schema")]
+        public string Schema { get; set; } = "maml";
+
+        /// <summary>
         ///     Command documentation.
         /// </summary>
-        [XmlArray("commands", Namespace = Constants.XmlNamespace.Command)]
-        [XmlArrayItem("command", Namespace = Constants.XmlNamespace.Command)]
+        [XmlElement("command", Namespace = Constants.XmlNamespace.Command)]
         public List<Command> Commands { get; set; } = new List<Command>();
     }
 }

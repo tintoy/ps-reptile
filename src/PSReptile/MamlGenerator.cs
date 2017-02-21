@@ -77,16 +77,22 @@ namespace PSReptile
                 )
             };
 
+            // TODO: Handle multiple parameter sets.
+            SyntaxItem soloSyntax = new SyntaxItem
+            {
+                CommandName = commandHelp.Details.Name
+            };
+            commandHelp.Syntax.Add(soloSyntax);
+
             foreach (PropertyInfo property in cmdletType.GetProperties())
             {
                 if (!Reflector.IsCmdletParameter(property))
                     continue;
 
-                // TODO: Handle multiple parameter sets.
                 ParameterAttribute parameterAttribute = property.GetCustomAttributes<ParameterAttribute>().First();
 
                 // TODO: Add support for localised help from resources.
-                commandHelp.Parameters.Add(new Parameter
+                Parameter parameter = new Parameter
                 {
                     Name = property.Name,
                     Description = ToParagraphs(parameterAttribute.HelpMessage),
@@ -100,7 +106,11 @@ namespace PSReptile
                     },
                     IsMandatory = parameterAttribute.Mandatory,
                     SupportsGlobbing = property.GetCustomAttribute<SupportsWildcardsAttribute>() != null
-                });
+                };
+                commandHelp.Parameters.Add(parameter);
+                
+                // TODO: Handle multiple parameter sets.
+                soloSyntax.Parameters.Add(parameter);
             }
 
             return commandHelp;
