@@ -78,13 +78,16 @@ namespace PSReptile
             };
 
             // TODO: Handle multiple parameter sets.
-            SyntaxItem soloSyntax = new SyntaxItem
+            var parameterSets = new Dictionary<string, SyntaxItem>
             {
-                CommandName = commandHelp.Details.Name
+                // Default parameter set.
+                [String.Empty] = new SyntaxItem
+                {
+                    CommandName = commandHelp.Details.Name
+                }
             };
-            commandHelp.Syntax.Add(soloSyntax);
 
-            foreach (PropertyInfo property in cmdletType.GetProperties())
+            foreach (PropertyInfo property in cmdletType.GetProperties().OrderBy(property => property.CanRead))
             {
                 if (!Reflector.IsCmdletParameter(property))
                     continue;
@@ -92,6 +95,7 @@ namespace PSReptile
                 ParameterAttribute parameterAttribute = property.GetCustomAttributes<ParameterAttribute>().First();
 
                 // TODO: Add support for localised help from resources.
+
                 Parameter parameter = new Parameter
                 {
                     Name = property.Name,
@@ -108,9 +112,28 @@ namespace PSReptile
                     SupportsGlobbing = property.GetCustomAttribute<SupportsWildcardsAttribute>() != null
                 };
                 commandHelp.Parameters.Add(parameter);
+
+                // Update command syntax for the current parameter set.
+                string parameterSetName = parameterAttribute.ParameterSetName ?? String.Empty;
                 
-                // TODO: Handle multiple parameter sets.
-                soloSyntax.Parameters.Add(parameter);
+                SyntaxItem parameterSetSyntax;
+                if (!parameterSets.TryGetValue(parameterSetName, out parameterSetSyntax))
+                {
+                    parameterSetSyntax = new SyntaxItem
+                    {
+                        CommandName = commandHelp.Details.Name
+                    };
+                    parameterSets.Add(parameterSetName, parameterSetSyntax);
+                }
+
+                parameterSetSyntax.Parameters.Add(parameter);
+            }
+
+            foreach (string parameterSetName in parameterSets.Keys.OrderBy(name => name))
+            {
+                commandHelp.Syntax.Add(
+                    parameterSets[parameterSetName]
+                );
             }
 
             return commandHelp;
