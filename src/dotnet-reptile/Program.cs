@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace PSReptile.DotNetCli
 {
-    using System.Xml.Serialization;
     using Maml;
 
     /// <summary>
@@ -20,36 +20,38 @@ namespace PSReptile.DotNetCli
         /// </param>
         static void Main(string[] args)
         {
-            if (args.Length != 1)
+            if (args.Length < 1 || args.Length > 2)
             {
-                Console.WriteLine("Usage:\n\tdotnet-reptile MyModule.dll");
+                Console.WriteLine("Usage:\n\tdotnet-reptile <Module.dll> [Module.dll-Help.xml]");
 
                 return;
             }
 
             try
             {
+                string modulePath = Path.GetFullPath(args[0]);
+
                 DirectoryAssemblyLoadContext loadContext = new DirectoryAssemblyLoadContext(
-                    Path.GetDirectoryName(
-                        Path.GetFullPath(args[0])
-                    )
+                    Path.GetDirectoryName(modulePath)
                 );
-                Assembly moduleAssembly = loadContext.LoadFromAssemblyPath(
-                    Path.GetFullPath(args[0])
-                );
+                Assembly moduleAssembly = loadContext.LoadFromAssemblyPath(modulePath);
                 HelpItems help = MamlGenerator.Generate(moduleAssembly);
 
-                using (StringWriter writer = new StringWriter())
+                FileInfo helpFile = new FileInfo(
+                    fileName: args.Length == 2 ? Path.GetFullPath(args[1]) : modulePath + "-Help.xml"
+                );
+                if (helpFile.Exists)
+                    helpFile.Delete();
+
+                using (StreamWriter writer = helpFile.CreateText())
                 {
                     new XmlSerializer(typeof(HelpItems)).Serialize(
                         writer, help, Constants.XmlNamespace.GetStandardPrefixes()
                     );
                     writer.Flush();
-
-                    Console.WriteLine(
-                        writer.ToString()
-                    );
                 }
+
+                Console.WriteLine($"Generated '{helpFile.FullName}'.");
             }
             catch (ReflectionTypeLoadException typeLoadError)
             {

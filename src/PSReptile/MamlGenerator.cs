@@ -78,15 +78,7 @@ namespace PSReptile
                 )
             };
 
-            // TODO: Handle multiple parameter sets.
-            var parameterSets = new Dictionary<string, SyntaxItem>
-            {
-                // Default parameter set.
-                [String.Empty] = new SyntaxItem
-                {
-                    CommandName = commandHelp.Details.Name
-                }
-            };
+            var parameterSets = new Dictionary<string, SyntaxItem>();
 
             foreach (PropertyInfo property in cmdletType.GetProperties().OrderBy(property => property.CanRead))
             {
