@@ -1,7 +1,8 @@
 <Project>
     <!-- Package metadata -->
     <PropertyGroup>
-        <PackageProjectUrl>https://tintoy.github.io/ps-reptile/</PackageProjectUrl>
+        <Authors>tintoy</Authors>
+        <PackageProjectUrl>https://github.com/tintoy/ps-reptile</PackageProjectUrl>
         <PackageLicenseUrl>https://raw.githubusercontent.com/tintoy/ps-reptile/master/LICENSE</PackageLicenseUrl>
 
         <RepositoryType>git</RepositoryType>
