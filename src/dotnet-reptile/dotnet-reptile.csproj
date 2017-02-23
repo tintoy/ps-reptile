@@ -8,6 +8,9 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp1.0</TargetFramework>
     <DebugType>portable</DebugType>
+    
+    <!-- RC4's support (well, NuGet's but who's counting) for package analysis is braindead -->
+    <NoPackageAnalysis>true</NoPackageAnalysis>
   </PropertyGroup>
 
   <Import Project="../Common.props"/>

@@ -7,13 +7,52 @@ using System.Reflection;
 
 namespace PSReptile
 {
+    using Extractors;
     using Maml;
 
     /// <summary>
     ///     Generates MAML from Powershell binary modules and the Cmdlets they contain.
     /// </summary>
-    public static class MamlGenerator
+    public class MamlGenerator
     {
+        /// <summary>
+        ///     Create a new MAML generator with the default documentation extractors (reflection, falling back to XML doc comments).
+        /// </summary>
+        public MamlGenerator()
+            : this(new ReflectionDocumentationExtractor(), new XmlCommentDocumentationExtractor())
+        {
+        }
+
+        /// <summary>
+        ///     Create a new MAML generator with the specified documentation extractors
+        /// </summary>
+        /// <param name="documentationExtractors">
+        ///     The documentation extractors, in the order they should be used.
+        /// </param>
+        public MamlGenerator(params IDocumentationExtractor[] documentationExtractors)
+            : this((IEnumerable<IDocumentationExtractor>)documentationExtractors)
+        {
+        }
+
+        /// <summary>
+        ///     Create a new MAML generator with the specified documentation extractors
+        /// </summary>
+        /// <param name="documentationExtractors">
+        ///     The documentation extractors, in the order they should be used.
+        /// </param>
+        public MamlGenerator(IEnumerable<IDocumentationExtractor> documentationExtractors)
+        {
+            if (documentationExtractors == null)
+                throw new ArgumentNullException(nameof(documentationExtractors));
+
+            DocumentationExtractors.AddRange(documentationExtractors);
+        }
+
+        /// <summary>
+        ///     Extractors for documentation.
+        /// </summary>
+        List<IDocumentationExtractor> DocumentationExtractors { get; } = new List<IDocumentationExtractor>();
+
         /// <summary>
         ///     Generate MAML documentation for the specified module.
         /// </summary>
@@ -23,7 +62,7 @@ namespace PSReptile
         /// <returns>
         ///     A <see cref="Command"/> representing the Cmdlet documentation.
         /// </returns>
-        public static HelpItems Generate(Assembly moduleAssembly)
+        public HelpItems Generate(Assembly moduleAssembly)
         {
             if (moduleAssembly == null)
                 throw new ArgumentNullException(nameof(moduleAssembly));
@@ -47,7 +86,7 @@ namespace PSReptile
         /// <returns>
         ///     A <see cref="Command"/> representing the Cmdlet documentation.
         /// </returns>
-        public static Command Generate(Type cmdletType)
+        public Command Generate(Type cmdletType)
         {
             if (cmdletType == null)
                 throw new ArgumentNullException(nameof(cmdletType));
@@ -59,22 +98,19 @@ namespace PSReptile
             CmdletAttribute cmdletAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletAttribute>();
             Debug.Assert(cmdletAttribute != null, "cmdletAttribute != null");
 
-            CmdletSynopsisAttribute cmdletSynopsisAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletSynopsisAttribute>();
-            CmdletDescriptionAttribute cmdletDescriptionAttribute = cmdletTypeInfo.GetCustomAttribute<CmdletDescriptionAttribute>();
-            
             Command commandHelp = new Command
             {
                 Details =
                 {
                     Name = $"{cmdletAttribute.VerbName}-{cmdletAttribute.NounName}",
                     Synopsis = ToParagraphs(
-                        cmdletSynopsisAttribute?.Synopsis?.Trim() ?? String.Empty
+                        GetCmdletSynopsis(cmdletTypeInfo) ?? String.Empty
                     ),
                     Verb = cmdletAttribute.VerbName,
                     Noun = cmdletAttribute.NounName
                 },
                 Description = ToParagraphs(
-                    cmdletDescriptionAttribute?.Description?.Trim() ?? String.Empty
+                    GetCmdletDescription(cmdletTypeInfo) ?? String.Empty
                 )
             };
 
@@ -130,6 +166,78 @@ namespace PSReptile
             }
 
             return commandHelp;
+        }
+
+        /// <summary>
+        ///     Get the synopsis for the specified Cmdlet.
+        /// </summary>
+        /// <param name="cmdletType">
+        ///     The CLR type that implements the Cmdlet.
+        /// </param>
+        /// <returns>
+        ///     The synopsis, or <c>null</c> if none of the registered documentation extractors was able to provide a synopsis for the Cmdlet.
+        /// </returns>
+        string GetCmdletSynopsis(TypeInfo cmdletType)
+        {
+            if (cmdletType == null)
+                throw new ArgumentNullException(nameof(cmdletType));
+
+            foreach (IDocumentationExtractor extractor in DocumentationExtractors)
+            {
+                string synopsis = extractor.GetCmdletSynopsis(cmdletType);
+                if (synopsis != null)
+                    return synopsis;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Get the description for the specified Cmdlet.
+        /// </summary>
+        /// <param name="cmdletType">
+        ///     The CLR type that implements the Cmdlet.
+        /// </param>
+        /// <returns>
+        ///     The description, or <c>null</c> if none of the registered documentation extractors was able to provide a description for the Cmdlet.
+        /// </returns>
+        string GetCmdletDescription(TypeInfo cmdletType)
+        {
+            if (cmdletType == null)
+                throw new ArgumentNullException(nameof(cmdletType));
+
+            foreach (IDocumentationExtractor extractor in DocumentationExtractors)
+            {
+                string description = extractor.GetCmdletDescription(cmdletType);
+                if (description != null)
+                    return description;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Get the description for the specified Cmdlet.
+        /// </summary>
+        /// <param name="parameterProperty">
+        ///     The CLR type that implements the Cmdlet.
+        /// </param>
+        /// <returns>
+        ///     The description, or <c>null</c> if none of the registered documentation extractors was able to provide a description for the Cmdlet.
+        /// </returns>
+        string GetParameterDescription(PropertyInfo parameterProperty)
+        {
+            if (parameterProperty == null)
+                throw new ArgumentNullException(nameof(parameterProperty));
+
+            foreach (IDocumentationExtractor extractor in DocumentationExtractors)
+            {
+                string description = extractor.GetParameterDescription(parameterProperty);
+                if (description != null)
+                    return description;
+            }
+
+            return null;
         }
 
         /// <summary>

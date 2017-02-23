@@ -9,6 +9,11 @@
         <RepositoryUrl>https://github.com/tintoy/ps-reptile</RepositoryUrl>
     </PropertyGroup>
 
+    <!-- Common options -->
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
     <!-- Global version info -->
     <Import Project="../VersionInfo.props"/>
 </Project>

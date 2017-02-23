@@ -5,7 +5,7 @@ namespace PSReptile
     /// <summary>
     ///     Provides an inline synopsis in the help content for a Cmdlet.
     /// </summary>
-    /// <seealso href="https://msdn.microsoft.com/en-us/library/bb525429.aspx">
+    /// <seealso href="https://msdn.microsoft.com/en-us/library/bb525429.aspx"/>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class CmdletSynopsisAttribute
         : Attribute
@@ -33,7 +33,7 @@ namespace PSReptile
     /// <summary>
     ///     Provides an inline detailed description in the help content for a Cmdlet.
     /// </summary>
-    /// <seealso href="https://msdn.microsoft.com/en-us/library/bb736332.aspx">
+    /// <seealso href="https://msdn.microsoft.com/en-us/library/bb736332.aspx"/>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class CmdletDescriptionAttribute
         : Attribute

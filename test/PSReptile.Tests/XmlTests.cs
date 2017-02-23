@@ -54,7 +54,18 @@ namespace PSReptile.Tests
     <maml:para>It gets them.</maml:para>
     <maml:para>I can't see how to make it any clearer than that.</maml:para>
   </maml:description>
-  <command:syntax />
+  <command:syntax>
+    <command:syntaxItem>
+      <maml:name>Get-Greeting</maml:name>
+      <command:parameter required=""true"" globbing=""false"" pipelineInput=""false"" position=""named"">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name of the person to greet</maml:para>
+        </maml:description>
+        <command:parameterValue required=""true"" variableLength=""false"">String</command:parameterValue>
+      </command:parameter>
+    </command:syntaxItem>
+  </command:syntax>
   <command:parameters>
     <command:parameter required=""true"" globbing=""false"" pipelineInput=""false"" position=""named"">
       <maml:name>Name</maml:name>
@@ -70,7 +81,7 @@ namespace PSReptile.Tests
 </command:command>
             ".Trim();
 
-            Command cmdletHelp = MamlGenerator.Generate(
+            Command cmdletHelp = new MamlGenerator().Generate(
                 typeof(SampleModule.GetGreeting)
             );
 

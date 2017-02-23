@@ -37,7 +37,7 @@ namespace PSReptile.DotNetCli
                     Path.GetDirectoryName(modulePath)
                 );
                 Assembly moduleAssembly = loadContext.LoadFromAssemblyPath(modulePath);
-                HelpItems help = MamlGenerator.Generate(moduleAssembly);
+                HelpItems help = new MamlGenerator().Generate(moduleAssembly);
 
                 FileInfo helpFile = new FileInfo(
                     fileName: args.Length == 3 ? Path.GetFullPath(args[2]) : modulePath + "-Help.xml"
