@@ -8,8 +8,10 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <DebugType>portable</DebugType>
 
-    <Title>PSReptile (generate help for binary PowerShell modules)</Title>
-    <PackageSummary>MAML help generation for Powershell Core binary modules.</PackageSummary>
+    <Title>PSReptile (generate help for PowerShell Cmdlets)</Title>
+    <Summary>PowerShell help file generator for binary modules.</Summary>
+    <Description>Generates MAML-format help files for Powershell modules.</Description>
+    <PackageTags>powershell;cmdlet;help</PackageTags>
   </PropertyGroup>
 
   <Import Project="../Common.props"/>
