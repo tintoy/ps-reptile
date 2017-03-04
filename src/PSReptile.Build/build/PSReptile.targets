@@ -1,0 +1,9 @@
+<Project>
+    <UsingTask TaskName="GenerateHelp" AssemblyFile="$(MSBuildThisFileDirectory)PSReptile.Build.dll" />
+
+    <Target Name="BuildPSHelp" DependsOnTargets="Build">
+        <GenerateHelp
+            ModuleAssembly="@(PrimaryOutput)"
+        />
+    </Target>
+</Project>

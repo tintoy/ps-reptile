@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <DebugType>portable</DebugType>
+    <Title>PSReptile.Build (generate help for PowerShell Cmdlets)</Title>
+    <Summary>Automatically generate help files for binary PowerShell modules.</Summary>
+    <Description>Design-time / build-time support for generating MAML-format help files from projects that produce Powershell modules.</Description>
+    <PackageTags>powershell;cmdlet;help</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content
+      Include="build/PSReptile.targets;$(OutputPath)/*.dll;$(OutputPath)/*.pdb"
+      Pack="true"
+      PackagePath="build/"
+    />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.1.548" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="15.1.548" />
+  </ItemGroup>
+</Project>
