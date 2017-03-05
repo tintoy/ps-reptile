@@ -83,5 +83,28 @@ namespace PSReptile.Utilities
                 return null;
             }
         }
+
+        /// <summary>
+        ///     Create a <see cref="DirectoryAssemblyLoadContext"/> targeting the directory where the specified assembly file is located.
+        /// </summary>
+        /// <param name="assemblyFilePath">
+        ///     The full path to the assembly file.
+        /// </param>
+        /// <returns>
+        ///     The configured <see cref="DirectoryAssemblyLoadContext"/>.
+        /// </returns>
+        public static DirectoryAssemblyLoadContext FromAssemblyFile(string assemblyFilePath)
+        {
+            if (String.IsNullOrWhiteSpace(assemblyFilePath))
+                throw new ArgumentException("Argument cannot be null, empty, or entirely composed of whitespace: 'assemblyFile'.", nameof(assemblyFilePath));
+            
+            FileInfo assemblyFile = new FileInfo(assemblyFilePath);
+            if (!assemblyFile.Exists)
+                throw new FileNotFoundException($"Cannot find assembly '{assemblyFilePath}'.", assemblyFilePath);
+
+            return new DirectoryAssemblyLoadContext(
+                fallbackDirectory: assemblyFile.Directory.FullName
+            );
+        }
     }
 }
