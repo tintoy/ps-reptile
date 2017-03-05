@@ -5,6 +5,7 @@ using System.Reflection;
 namespace PSReptile.DotNetCli
 {
     using Maml;
+    using Utilities;
 
     /// <summary>
     ///     The main program entry-point.

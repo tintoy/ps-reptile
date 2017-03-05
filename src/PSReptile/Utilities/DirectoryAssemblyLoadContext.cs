@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace PSReptile.DotNetCli
+namespace PSReptile.Utilities
 {
     /// <summary>
     ///     An assembly load context that falls back to a specific directory for assemblies that cannot be found by other means.
@@ -11,7 +11,7 @@ namespace PSReptile.DotNetCli
     /// <remarks>
     ///     Ignores assembly version / public key token (for now, that's acceptable, but we may want to tighten it up later).
     /// </remarks>
-    class DirectoryAssemblyLoadContext
+    public class DirectoryAssemblyLoadContext
         : AssemblyLoadContext
     {
         /// <summary>

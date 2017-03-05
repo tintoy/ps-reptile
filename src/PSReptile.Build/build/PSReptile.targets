@@ -1,9 +1,18 @@
 <Project>
     <UsingTask TaskName="GenerateHelp" AssemblyFile="$(MSBuildThisFileDirectory)PSReptile.Build.dll" />
 
-    <Target Name="BuildPSHelp" DependsOnTargets="Build">
+    <Target Name="BuildPSHelp" AfterTargets="Build" Condition=" '$(BuildPSHelp)' == 'true' '">
         <GenerateHelp
             ModuleAssembly="@(PrimaryOutput)"
+            HelpFile="$(PSModuleHelpFile)"
         />
+
+        <ItemGroup Condition=" '$(PublishPSHelpFile)' == 'true' ">
+            <ContentWithTargetPath
+                Include="@(PSModuleHelp)"
+                CopyToPublishDirectory="Always"
+                TargetPath="%(FileName)%(Extension)"
+            />
+        </ItemGroup>
     </Target>
 </Project>
