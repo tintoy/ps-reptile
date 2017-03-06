@@ -3,13 +3,12 @@
     <PropertyGroup>
         <BuildPSHelp Condition=" '$(BuildPSHelp)' == '' ">true</BuildPSHelp>
         <PublishPSHelp Condition=" '$(PublishPSHelp)' == '' ">true</PublishPSHelp>
-        <PSModuleHelpFile Condition=" '$(PSModuleHelpFile)' == '' ">$(IntermediateOutputPath)$(TargetName)$(TargetExt)-Help.xml</PSModuleHelpFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PSModuleHelp
-            Include="$(PSModuleHelpFile)"
-            SourceModule="$(PrimaryOutput)"
+            Include="@(BuiltProjectOutputGroupKeyOutput->'%(Identity)-Help.xml')"
+            SourceModule="@(BuiltProjectOutputGroupKeyOutput)"
         />
     </ItemGroup>
 </Project>

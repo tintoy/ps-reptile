@@ -13,7 +13,7 @@ Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "PSReptile.Tests", "test\PSR
 EndProject
 Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "PSReptile.SampleModule", "src\PSReptile.SampleModule\PSReptile.SampleModule.csproj", "{CE2AB7EF-1BF6-4376-9EB8-A00A0738BA74}"
 EndProject
-Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "dotnet-reptile", "src\dotnet-reptile\dotnet-reptile.csproj", "{A0299D9F-58E7-4EC9-97F9-B87E51786C02}"
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "PSReptile.DotNetCli", "src\PSReptile.DotNetCli\PSReptile.DotNetCli.csproj", "{A0299D9F-58E7-4EC9-97F9-B87E51786C02}"
 EndProject
 Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "PSReptile.Build", "src\PSReptile.Build\PSReptile.Build.csproj", "{ABB1D838-E384-4BE6-8A6C-89A5E0DC4C74}"
 EndProject
