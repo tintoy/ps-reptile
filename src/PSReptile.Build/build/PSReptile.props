@@ -6,9 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PSModuleHelp
-            Include="@(BuiltProjectOutputGroupKeyOutput->'%(Identity)-Help.xml')"
-            SourceModule="@(BuiltProjectOutputGroupKeyOutput)"
+        <PSModule Include="@(BuiltProjectOutputGroupKeyOutput)"
+            Help="%(Identity)-Help.xml"
+        />
+
+        <PSModuleHelp Include="%(PSModule.Help)"
+            SourceModule="%(Identity)"
         />
     </ItemGroup>
 </Project>

@@ -2,16 +2,16 @@
     <UsingTask TaskName="GenerateHelp" AssemblyFile="$(MSBuildThisFileDirectory)PSReptile.Build.dll" />
 
     <Target Name="BuildPSHelp"
-        AfterTargets="Build"
+        Inputs="@(PSModule)"
+        Outputs="%(Help)"
 
-        Inputs="%(PSModuleHelp.SourceModule)"
-        Outputs="@(PSModuleHelp)"
+        AfterTargets="Build"
         
         Condition=" '$(BuildPSHelp)' == 'true' '"
     >
         <GenerateHelp
-            ModuleAssembly="%(PSModuleHelp.SourceModule)"
-            HelpFile="@(PSModuleHelp)"
+            ModuleAssembly="@(PSModule)"
+            HelpFile="%(PSModule.Help)"
         />
 
         <ItemGroup Condition=" '$(PublishPSHelp)' == 'true' ">
