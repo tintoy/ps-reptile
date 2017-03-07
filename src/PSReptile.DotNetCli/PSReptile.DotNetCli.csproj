@@ -10,6 +10,7 @@
     <DebugType>portable</DebugType>
 
     <AssemblyName>dotnet-reptile</AssemblyName>
+    <IsTool>true</IsTool>
     
     <!-- RC4's support (well, NuGet's but who's counting) for package analysis is braindead -->
     <NoPackageAnalysis>true</NoPackageAnalysis>
