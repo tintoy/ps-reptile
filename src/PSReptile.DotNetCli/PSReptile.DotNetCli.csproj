@@ -19,8 +19,8 @@
 
   <!-- Wrapper executables -->
   <ItemGroup>
-    <Content Include="dotnet-reptile" CopyToPublishDirectory="Always" />
-    <Content Include="dotnet-reptile.ps1" CopyToPublishDirectory="Always" />
+    <Content Include="dotnet-reptile" CopyToOutputDirectory="Always" />
+    <Content Include="dotnet-reptile.ps1" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>

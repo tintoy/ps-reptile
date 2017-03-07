@@ -1,0 +1,9 @@
+<Project>
+    <!-- Common properties for test projects -->
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <!-- Global version info -->
+    <Import Project="../VersionInfo.props"/>
+</Project>
