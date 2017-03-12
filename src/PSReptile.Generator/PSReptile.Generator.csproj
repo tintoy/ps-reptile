@@ -1,43 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <!-- PowerShell core requires NETStandard 1.6.1 -->
     <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <TargetFramework>netstandard1.6</TargetFramework>
     <DebugType>portable</DebugType>
 
-    <AssemblyName>dotnet-reptile</AssemblyName>
-    <IsTool>true</IsTool>
-    
-    <!-- RC4's support (well, NuGet's but who's counting) for package analysis is braindead -->
-    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <DefaultNamespace>PSReptile</DefaultNamespace>
+
+    <Title>PSReptile generator</Title>
+    <Summary>PowerShell help generator for binary modules.</Summary>
+    <Description>Generates MAML-format help for Powershell modules.</Description>
+    <PackageTags>powershell;cmdlet;help</PackageTags>
   </PropertyGroup>
 
   <Import Project="../Common.props"/>
 
-  <!-- Wrapper executables -->
-  <ItemGroup>
-    <Content Include="dotnet-reptile" CopyToOutputDirectory="Always" />
-    <Content Include="dotnet-reptile.ps1" CopyToOutputDirectory="Always" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="../PSReptile/PSReptile.csproj" />
-    <ProjectReference Include="../PSReptile.Generator/PSReptile.Generator.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.DotNet.Cli.Utils" Version="1.0.0-rc4-004771" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
   </ItemGroup>
 
   <!-- Powershell Core v6.0.0-alpha13 -->
   <ItemGroup>
     <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
-
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
   </ItemGroup>
+
 </Project>

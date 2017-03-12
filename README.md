@@ -63,6 +63,12 @@ public class GetFooConnection
 }
 ```
 
+# Usage
+
+Install package `PSReptile` into your project; it contains only attribute definitions that you can apply to your Cmdlets. The generator is part of the `PSReptile.Generator` package, or just add `PSReptile.Build` as a design-time package to automatically generate help when you build your project.
+
+# Notes
+
 This project is very much a work-in-progress:
 
 * If you have questions or comments, feel free to raise an issue.

@@ -1,29 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <!-- PowerShell core requires NETStandard 1.6.1 -->
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <TargetFramework>netstandard1.6</TargetFramework>
     <DebugType>portable</DebugType>
 
-    <Title>PSReptile (generate help for PowerShell Cmdlets)</Title>
-    <Summary>PowerShell help file generator for binary modules.</Summary>
-    <Description>Generates MAML-format help files for Powershell modules.</Description>
+    <DefaultNamespace>PSReptile</DefaultNamespace>
+
+    <Title>PSReptile</Title>
+    <Summary>Custom attributes for PowerShell help generation.</Summary>
+    <Description>This package contains attributes used to drive generation of MAML-format help for Powershell modules.</Description>
     <PackageTags>powershell;cmdlet;help</PackageTags>
   </PropertyGroup>
 
   <Import Project="../Common.props"/>
-
-  <ItemGroup>
-    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
-  </ItemGroup>
-
-  <!-- Powershell Core v6.0.0-alpha13 -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
-    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
-  </ItemGroup>
-
 </Project>

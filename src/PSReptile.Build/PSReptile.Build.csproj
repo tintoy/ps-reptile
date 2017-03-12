@@ -8,7 +8,7 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <DebugType>portable</DebugType>
 
-    <Title>PSReptile.Build (generate help for PowerShell Cmdlets)</Title>
+    <Title>PSReptile.Build</Title>
     <Summary>Automatically generate help files for binary PowerShell modules.</Summary>
     <Description>Design-time / build-time support for generating MAML-format help files from projects that produce Powershell modules.</Description>
     <PackageTags>powershell;cmdlet;help</PackageTags>
@@ -48,6 +48,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../PSReptile/PSReptile.csproj" />
+    <ProjectReference Include="../PSReptile.Generator/PSReptile.Generator.csproj" />
   </ItemGroup>
 
   <Import Project="../Common.props" />

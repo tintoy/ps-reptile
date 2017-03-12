@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/PSReptile/PSReptile.csproj"/>
+    <ProjectReference Include="../../src/PSReptile.Generator/PSReptile.Generator.csproj"/>
     <ProjectReference Include="../../src/PSReptile.SampleModule/PSReptile.SampleModule.csproj"/>
   </ItemGroup>
 
