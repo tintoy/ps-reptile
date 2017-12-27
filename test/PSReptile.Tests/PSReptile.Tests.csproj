@@ -1,13 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- PowerShell core requires NETStandard 1.6.1 -->
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,17 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Powershell Core 6.0.0-alpha13 -->
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
-    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-rc.2"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170106-08" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="1.1.0" />
     
-    <PackageReference Include="xunit" Version="2.2.0-rc4-build3536" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0-rc4-build1270" />
+    <PackageReference Include="xunit" Version="2.3.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.0" />
   </ItemGroup>
 
   <Import Project="../Common.props" />

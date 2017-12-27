@@ -1,7 +1,7 @@
 <Project>
     <!-- Global version info -->
-    <PropertyGroup>
-        <VersionPrefix>0.0.2</VersionPrefix>
+    <PropertyGroup Condition=" '$(Version)' == '' ">
+        <VersionPrefix>0.0.3</VersionPrefix>
         <VersionSuffix Condition=" '$(VersionSuffix)' == '' ">dev</VersionSuffix>
     </PropertyGroup>
 </Project>

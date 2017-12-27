@@ -1,11 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <!-- PowerShell core requires NETStandard 1.6.1 -->
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -16,9 +11,7 @@
     <ProjectReference Include="../PSReptile/PSReptile.csproj"/>
   </ItemGroup>
 
-  <!-- Powershell Core v6.0.0-alpha13 -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-alpha13"/>
-    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.3-beta-24514-00"/>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.0.0-rc.2"/>
   </ItemGroup>
 </Project>

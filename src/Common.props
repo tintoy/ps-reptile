@@ -12,6 +12,8 @@
     <!-- Common options -->
     <PropertyGroup>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+        <NoPackageAnalysis>true</NoPackageAnalysis>
     </PropertyGroup>
 
     <!-- Global version info -->
