@@ -7,7 +7,7 @@
 
         AfterTargets="Build"
         
-        Condition=" '$(BuildPSHelp)' == 'true' '"
+        Condition=" '$(BuildPSHelp)' == 'true' "
     >
         <GenerateHelp
             ModuleAssembly="@(PSModule)"
